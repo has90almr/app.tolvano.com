@@ -24,7 +24,7 @@ async function auth(path,body,access=""){
   return{ok:r.ok,status:r.status,data:d};
 }
 const signIn=(email,password)=>auth("/auth/v1/token?grant_type=password",{email,password});
-const signUp=(email,password)=>auth("/auth/v1/signup",{email,password});
+const signUp=(email,password)=>auth("/auth/v1/signup?redirect_to="+encodeURIComponent("https://app.tolvano.com/"),{email,password});
 async function signOut(){const a=token();if(a)try{await auth("/auth/v1/logout",null,a)}catch{}setToken("");snap=null;render()}
 function cls(s){s=String(s||"");if(/PASS|ACTIVE|WORKING|RUNNING|COMPLETED|READY|CONFIRMED/.test(s))return"ok";if(/FAIL|OFFLINE|ERROR/.test(s))return"bad";if(/BLOCK|WAIT|SAFE|QUEUED|PREPARED|RECONCILIATION/.test(s))return"warn";return"muted"}
 function E(tag,cl,txt){const e=document.createElement(tag);if(cl)e.className=cl;if(txt!==undefined)e.textContent=String(txt);return e}
